@@ -44,7 +44,7 @@
   "plugin.message.import.error.imported-partial.message": "Some data failed to be imported. See below for detailed information.",
 
   "plugin.import.data-source-step.title": "Select a Data Source",
-  "plugin.import.drag-drop-file": "Drag & drop your file into this area or browse for a file to upload",
+  "plugin.import.drag-drop-file": "Drag & drop your file into this area or browse for a file to upload, support csv, json, xlsx",
   "plugin.import.file-name": "File name",
   "plugin.import.importing-data": "Importing data...",
   "plugin.import.partially-failed": "Import Partially Failed",

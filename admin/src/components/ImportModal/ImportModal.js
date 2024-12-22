@@ -180,7 +180,7 @@ export const ImportModal = ({ onClose }) => {
                   <Typography style={{ fontSize: '1rem', fontWeight: 500 }} textColor="neutral600" as="p">
                     {i18n('plugin.import.drag-drop-file')}
                   </Typography>
-                  <input type="file" accept=".csv,.json" hidden="" onChange={onReadFile} />
+                  <input type="file" accept=".csv,.json,.xlsx" hidden="" onChange={onReadFile} />
                 </label>
                 <label className="plugin-ie-import_modal_label plugin-ie-import_modal_button-label" onClick={openCodeEditor}>
                   <span className="plugin-ie-import_modal_label-icon-wrapper">
