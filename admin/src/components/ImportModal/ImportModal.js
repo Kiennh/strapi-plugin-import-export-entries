@@ -15,6 +15,7 @@ import { dataFormats } from '../../utils/dataFormats';
 import { handleRequestErr } from '../../utils/error';
 import { Editor } from '../Editor/Editor';
 import { ImportEditor } from './components/ImportEditor';
+const pluginId = require('../../pluginId');
 
 const ModalState = {
   SUCCESS: 'success',
@@ -52,20 +53,30 @@ export const ImportModal = ({ onClose }) => {
   };
 
   const readFile = (file) => {
+    let apiReader = false;
     if (file.type === 'text/csv' || /\.csv$/i.test(file.name)) {
       setDataFormat(dataFormats.CSV);
     } else if (file.type === 'application/json' || /\.json$/i.test(file.name)) {
       setDataFormat(dataFormats.JSON);
+    } else if (file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' || /\.xlsx$/i.test(file.name)) {
+      console.warn("pluginId", pluginId)
+      apiReader = true;
     } else {
       throw new Error(`File type ${file.type} not supported.`);
     }
-
     const reader = new FileReader();
-    reader.onload = async (e) => {
-      const text = e.target.result;
-      setData(text);
-    };
-    reader.readAsText(file);
+    if (!apiReader) {
+      reader.onload = async (e) => {
+        const text = e.target.result;
+        setData(text);
+      };
+      reader.readAsText(file);
+    } else {
+      api.convertData({ file }).then(res => {
+        setDataFormat(dataFormats.JSON);
+        setData(JSON.stringify(res.data.data));
+      })
+    }
   };
 
   const openCodeEditor = () => {

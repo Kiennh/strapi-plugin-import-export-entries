@@ -14,6 +14,12 @@ async function registerPermissionActions() {
       uid: 'export',
       pluginName: 'import-export-entries',
     },
+    {
+      section: 'plugins',
+      displayName: 'Convert',
+      uid: 'convert',
+      pluginName: 'import-export-entries',
+    },
   ];
 
   await (strapi as any).admin.services.permission.actionProvider.registerMany(actions);

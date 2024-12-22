@@ -17,5 +17,13 @@ module.exports = {
         policies: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/convert',
+      handler: 'importAdmin.convertData',
+      config: {
+        policies: [],
+      },
+    },
   ],
 };

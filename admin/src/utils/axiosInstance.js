@@ -11,10 +11,11 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   async (config) => {
+    const contentType = config?.headers['Content-Type'] == null || typeof config?.headers['Content-Type'] == "undefined" ? 'application/json' : config?.headers['Content-Type'];
     config.headers = {
       Authorization: `Bearer ${auth.getToken()}`,
       Accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Content-Type': contentType,
     };
 
     return config;

@@ -1,11 +1,13 @@
 import { request } from '@strapi/helper-plugin';
-
+import axios from 'axios';
+import { auth } from '@strapi/helper-plugin';
 import pluginId from '../pluginId';
 
 export const api = {
   exportData,
   getModelAttributes,
   importData,
+  convertData,
 };
 
 async function exportData({ slug, search, applySearch, exportFormat, relationsAsId, deepness, exportPluginsContentTypes }) {
@@ -33,6 +35,19 @@ async function importData({ slug, data, format, idField }) {
   const resData = await request(`/${pluginId}/import`, {
     method: 'POST',
     body: { slug, data, format, idField },
+  });
+  return resData;
+}
+
+async function convertData({ file }) {
+  const data = new FormData();
+  data.append("file", file);
+
+  const resData = await axios.post(`/${pluginId}/convert`, data, {
+    headers: {
+      "Content-Type": "application/octet-stream",
+      Authorization: `Bearer ${auth.get("jwtToken")}`,
+    },
   });
   return resData;
 }

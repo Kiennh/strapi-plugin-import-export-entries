@@ -5,6 +5,14 @@ const { getModelAttributes, getModel } = require('../../utils/models');
 const { findOrImportFile } = require('./utils/file');
 const { parseInputData } = require('./parsers');
 
+
+
+
+const convertData = async (dataRaw) => {
+  return { "data": { "version": 2, "data": { "api::administration-route.administration-route": { "1": { "id": 1, "code": "a", "DUONG_DUNG": "b", "LOAI_DUONG_TIEM_TRUYEN": "c", "createdAt": "2024-12-22T13:04:24.655Z", "updatedAt": "2024-12-22T13:04:25.865Z", "publishedAt": "2024-12-22T13:04:25.860Z", "createdBy": null, "updatedBy": null } } } } };
+};
+
+
 /**
  * @typedef {Object} ImportDataRes
  * @property {Array<ImportDataFailures>} failures
@@ -213,4 +221,5 @@ const updateOrCreateRelation = async (user, rel, relData) => {
 
 module.exports = {
   importData,
+  convertData,
 };
