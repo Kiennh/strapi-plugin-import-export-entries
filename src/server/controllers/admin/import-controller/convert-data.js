@@ -9,7 +9,6 @@ async function convertData(ctx) {
   // if (!hasPermissions(ctx)) {
   //   return ctx.forbidden();
   // }
-  console.warn(ctx.request.body, ctx.request.files)
   const { user } = ctx.state;
   const res = await getService('import').convertData(ctx.request.body)
 

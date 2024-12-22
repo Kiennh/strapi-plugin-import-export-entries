@@ -16,6 +16,7 @@ export const ImportEditor = ({ file, data, dataFormat, slug, onDataChanged, onOp
     const fetchAttributeNames = async () => {
       const attributeNames = await api.getModelAttributes({ slug });
       setAttributeNames(attributeNames);
+      setOption('idField', attributeNames[0])
     };
     fetchAttributeNames();
   }, []);
