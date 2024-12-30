@@ -72,10 +72,15 @@ export const ImportModal = ({ onClose }) => {
       };
       reader.readAsText(file);
     } else {
-      api.convertData({ file }).then(res => {
-        setDataFormat(dataFormats.JSON);
-        setData(JSON.stringify(res.data.data));
-      })
+      reader.onload = async (e) => {
+        api.convertData({ file: new Blob([reader.result]) }).then(res => {
+
+          setDataFormat(dataFormats.JSON);
+          setData(JSON.stringify(res.data));
+        })
+      }
+      reader.readAsArrayBuffer(file)
+
     }
   };
 

@@ -10,12 +10,18 @@ async function convertData(ctx) {
   //   return ctx.forbidden();
   // }
   const { user } = ctx.state;
-  const res = await getService('import').convertData(ctx.request.body)
+  if (ctx.request.files['file'] == null || typeof ctx.request.files['file'] == "undefined") {
+    ctx.body = {
+      failures: "File not found in request",
+    };
+  } else {
+    const res = await getService('import').convertData({ file: ctx.request.files['file'] })
+    ctx.body = {
+      failures: res?.failures,
+      data: res?.data
+    };
 
-  ctx.body = {
-    failures: res.failures,
-    data: res.data
-  };
+  }
 }
 
 
